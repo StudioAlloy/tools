@@ -1,0 +1,537 @@
+$brand-one: #85dbda;
+$brand-two: #f53;
+$brand-light: #fff;
+$brand-dark: #0c162d;
+$brand-grey: #637192;
+$base-margin: 15px;
+$alloy-container: 1600px;
+//------------------------------------------------------//
+// The real Bootstrap way to load in media queries.
+// And here is an example
+//     @include media-breakpoint-up(md) {
+//       // YOUR MQ CODE
+//     }
+//------------------------------------------------------//
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+) !default; // Breakpoint viewport sizes and media queries.
+//
+// Breakpoints are defined as a map of (name: minimum width), order from small to large:
+//
+//    (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px)
+//
+// The map defined in the `$grid-breakpoints` global variable is used as the `$breakpoints` argument by default.
+// Name of the next breakpoint, or null for the last breakpoint.
+//
+//    >> breakpoint-next(sm)
+//    md
+//    >> breakpoint-next(sm, (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px))
+//    md
+//    >> breakpoint-next(sm, $breakpoint-names: (xs sm md lg xl))
+//    md
+@function breakpoint-next($name, $breakpoints: $grid-breakpoints, $breakpoint-names: map-keys($breakpoints)) {
+  $n: index($breakpoint-names, $name);
+  @return if($n < length($breakpoint-names), nth($breakpoint-names, $n + 1), null);
+}
+// Minimum breakpoint width. Null for the smallest (first) breakpoint.
+//
+//    >> breakpoint-min(sm, (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px))
+//    576px
+@function breakpoint-min($name, $breakpoints: $grid-breakpoints) {
+  $min: map-get($breakpoints, $name);
+  @return if($min != 0, $min, null);
+}
+// Maximum breakpoint width. Null for the largest (last) breakpoint.
+// The maximum value is calculated as the minimum of the next one less 0.1.
+//
+//    >> breakpoint-max(sm, (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px))
+//    767px
+@function breakpoint-max($name, $breakpoints: $grid-breakpoints) {
+  $next: breakpoint-next($name, $breakpoints);
+  @return if($next, breakpoint-min($next, $breakpoints) - 1px, null);
+}
+// Returns a blank string if smallest breakpoint, otherwise returns the name with a dash infront.
+// Useful for making responsive utilities.
+//
+//    >> breakpoint-infix(xs, (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px))
+//    ""  (Returns a blank string)
+//    >> breakpoint-infix(sm, (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px))
+//    "-sm"
+@function breakpoint-infix($name, $breakpoints: $grid-breakpoints) {
+  @return if(breakpoint-min($name, $breakpoints) == null, "", "-#{$name}");
+}
+// Media of at least the minimum breakpoint width. No query for the smallest breakpoint.
+// Makes the @content apply to the given breakpoint and wider.
+@mixin media-breakpoint-up($name, $breakpoints: $grid-breakpoints) {
+  $min: breakpoint-min($name, $breakpoints);
+  @if $min {
+    @media (min-width: $min) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+// Media of at most the maximum breakpoint width. No query for the largest breakpoint.
+// Makes the @content apply to the given breakpoint and narrower.
+@mixin media-breakpoint-down($name, $breakpoints: $grid-breakpoints) {
+  $max: breakpoint-max($name, $breakpoints);
+  @if $max {
+    @media (max-width: $max) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+// Media that spans multiple breakpoint widths.
+// Makes the @content apply between the min and max breakpoints
+@mixin media-breakpoint-between($lower, $upper, $breakpoints: $grid-breakpoints) {
+  $min: breakpoint-min($lower, $breakpoints);
+  $max: breakpoint-max($upper, $breakpoints);
+  @if $min != null and $max != null {
+    @media (min-width: $min) and (max-width: $max) {
+      @content;
+    }
+  } @else if $max == null {
+    @include media-breakpoint-up($lower) {
+      @content;
+    }
+  } @else if $min == null {
+    @include media-breakpoint-down($upper) {
+      @content;
+    }
+  }
+}
+// Media between the breakpoint's minimum and maximum widths.
+// No minimum for the smallest breakpoint, and no maximum for the largest one.
+// Makes the @content apply only to the given breakpoint, not viewports any wider or narrower.
+@mixin media-breakpoint-only($name, $breakpoints: $grid-breakpoints) {
+  $min: breakpoint-min($name, $breakpoints);
+  $max: breakpoint-max($name, $breakpoints);
+  @if $min != null and $max != null {
+    @media (min-width: $min) and (max-width: $max) {
+      @content;
+    }
+  } @else if $max == null {
+    @include media-breakpoint-up($name) {
+      @content;
+    }
+  } @else if $min == null {
+    @include media-breakpoint-down($name) {
+      @content;
+    }
+  }
+}
+//------------------------------------------------------//
+// END The real Bootstrap way to load in media queries.
+//------------------------------------------------------//
+
+//------------------------------------------------------//
+// Reset
+//------------------------------------------------------//
+* {
+  box-sizing: border-box;
+}
+body {
+  // overflow: hidden;
+  background-color: lighten($brand-grey, 30%);
+  background-color: $brand-dark;
+}
+a {
+  color: $brand-light;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+  margin-bottom: $base-margin;
+}
+// END Reset -------------------------------------//
+
+#app {
+  font-size: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 100vh;
+  // overflow: scroll;
+}
+//------------------------------------------------------//
+// Sidebar
+//------------------------------------------------------//
+aside {
+  order: -1;
+  @include media-breakpoint-up(lg) {
+    order: 1;
+  }
+  color: $brand-light;
+  width: 100%;
+  background-color: $brand-dark;
+  > .inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    overflow-y: auto;
+  }
+}
+#intro {
+  @include media-breakpoint-up(lg) {
+    order: 2;
+  }
+  background-color: $brand-grey;
+  > .inner {
+    width: $alloy-container;
+    max-width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: $base-margin * 2;
+    @include media-breakpoint-down(md) {
+      flex-direction: column;
+    }
+  }
+}
+#logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+  img {
+    margin-right: 10px;
+    width: 70px;
+  }
+  span {
+    display: block;
+    font-size: 12px;
+    &:last-of-type {
+      font-weight: 700;
+      font-size: 20px;
+    }
+  }
+}
+#version {
+  opacity: 0.3;
+  text-align: center;
+  font-size: 14px;
+  text-transform: uppercase;
+  margin-top: $base-margin;
+}
+
+// END Sidebar -------------------------------------//
+
+//------------------------------------------------------//
+// 🎛️ User controls
+//------------------------------------------------------//
+#controls {
+  border-top: 2px solid $brand-grey;
+  border-bottom: 2px solid $brand-grey;
+  padding-bottom: $base-margin * 2;
+  > .inner {
+    width: $alloy-container;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  .alloy-title {
+    padding: $base-margin * 2 0 0 $base-margin * 2;
+  }
+}
+form {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  @include media-breakpoint-up(sm) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @include media-breakpoint-up(lg) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  > * {
+    padding: $base-margin * 2;
+  }
+}
+.input-group,
+.input {
+  width: 100%;
+  // margin-right: $base-margin;
+}
+.input-group {
+  min-height: 240px;
+  // height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  > * {
+    // height: 100%;
+  }
+}
+.input {
+  // margin-bottom: $base-margin;
+  label {
+    margin-bottom: 7px;
+    display: block;
+    font-weight: 700;
+    font-size: 20px;
+    // margin-bottom: $base-margin;
+  }
+  .description {
+    display: block;
+    font-weight: 400;
+    font-size: 14px;
+    margin-bottom: $base-margin;
+  }
+  button {
+    width: 49%;
+    margin-bottom: 0;
+    // padding: 0 2px;
+    margin: 0 1px;
+    // border: 1px solid $brand-light;
+    &:first-child {
+      background-color: lighten($brand-two, 4%);
+    }
+  }
+  input {
+    width: 100%;
+  }
+}
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 5px;
+  background: $brand-light;
+  outline: none;
+  // opacity: 0.7;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: $brand-two;
+    cursor: pointer;
+  }
+
+  &::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #4caf50;
+    cursor: pointer;
+  }
+}
+input[type="radio"],
+input[type="checkbox"] {
+  width: auto;
+  margin-right: 5px;
+  transform: translateY(1px);
+  + label {
+    font-weight: 400;
+    display: inline;
+    font-size: 14px;
+    // transform: translateY(-2px);
+    // line-height: 1.5em;
+  }
+}
+[type="file"] {
+  height: 0;
+  overflow: hidden;
+  width: 0;
+}
+.file-upload {
+  display: flex;
+  flex-direction: column;
+  // justify-content: center;
+  // align-items: center;
+  [type="file"] + label {
+  }
+}
+[type="file"] + label {
+  border-radius: 0;
+  border: none;
+  color: $brand-dark !important;
+  // color: ;
+  cursor: pointer;
+  outline: none;
+  text-align: center;
+  position: relative;
+  transition: background-color, border;
+  transition-duration: 300ms;
+  transition-timing-function: ease;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 4px solid $brand-two !important;
+  background-color: lighten($brand-two, 15%) !important;
+  vertical-align: middle;
+  @extend button;
+  width: 100% !important;
+  &:hover {
+    background-color: $brand-one !important;
+    border-color: $brand-one !important;
+  }
+}
+select {
+  width: 100%;
+}
+input[type="submit"],
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: $brand-two;
+  color: $brand-light;
+  font-weight: 700;
+  border: 0;
+  // margin-bottom: 20px;
+  &:hover {
+    background-color: $brand-one;
+    color: $brand-dark;
+  }
+}
+.btn-alt {
+  background-color: #ccc;
+  color: $brand-dark;
+}
+button[disabled] {
+  opacity: 0.6;
+  background-color: #ccc;
+  color: #666;
+}
+// END 🎛️ User controls -------------------------------------//
+
+//------------------------------------------------------//
+// 🛠️ Tool
+//------------------------------------------------------//
+// canvas,
+#export-image {
+  width: 1200px;
+  height: 630px;
+  // transform: scale(0.8);
+}
+
+#tool {
+  position: relative;
+  background-color: #ffc0cb;
+  margin: $base-margin * 2 0;
+  #background {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+  }
+  .alloy-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    img {
+      width: 100%;
+      height: auto;
+      transform: scale(1.1);
+    }
+  }
+}
+
+//------------------------------------------------------//
+// Center line
+//------------------------------------------------------//
+#center-line {
+  position: absolute;
+  z-index: 2000;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  hr {
+    border: 0;
+    border-top: 2px dashed rgba($brand-two, 0.4);
+  }
+  .tool-tip {
+    $offset: 200px;
+    width: $offset;
+    background-color: $brand-grey;
+    color: $brand-light;
+    position: absolute;
+    top: -45px;
+    left: -$offset;
+    padding: $base-margin;
+    > * {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.5em;
+    }
+    &:before {
+      $offset: 12px;
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: -$offset + 4;
+      transform: translatey(-50%);
+      width: 0;
+      height: 0;
+      border-top: $offset solid transparent;
+      border-bottom: $offset solid transparent;
+
+      border-left: $offset solid $brand-grey;
+    }
+  }
+  button {
+    $offset: 60px;
+    width: $offset;
+    height: $offset;
+    border-radius: 50%;
+    background-color: $brand-two;
+    position: absolute;
+    top: -20px;
+    right: -$offset;
+    &:before {
+      $offset: 12px;
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: -$offset + 4;
+      transform: translatey(-50%);
+      width: 0;
+      height: 0;
+      border-top: $offset solid transparent;
+      border-bottom: $offset solid transparent;
+
+      border-right: $offset solid $brand-two;
+
+      &:hover {
+        background-color: $brand-one !important;
+      }
+    }
+    span {
+      display: block;
+      text-align: center;
+      &:first-child {
+        font-size: 25px;
+        line-height: 1.4em;
+        // transform: rotate(45deg);
+      }
+      &:last-child {
+        text-indent: -9999px;
+      }
+    }
+  }
+}
+// END Center line -------------------------------------//
