@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Facebook og:image generator with html2canvas &amp; FileSaver.js</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+  <link rel="stylesheet" href=".src/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+
+</head>
+
+<body>
+  <!-- partial:index.partial.html -->
+  <div id="app">
+
+    <div id="tool" class="container">
+      <div class="inner">
+
+        <div id="export-image">
+          <div id="title">
+            <h1>{{ title }}</h1>
+            <h2>{{ date }}</h2>
+          </div>
+          <div id="logo" :class="{ show: logo }">
+            <img
+              src="data:image/jpeg;base64,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"
+              alt="">
+            <!--           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150"><style>.st1{fill:#fff}</style>
+<g id="text">
+  <path d="M95.2 129.6l-1.8-10.4h-9.5l-1.7 10.4h-6.5l8-45.1h9.4l8.6 45.1h-6.5zm-10.5-15.7h7.8l-4.1-23.8-3.7 23.8zM105.8 84.5h14.5c4.5 0 6.8 2.1 6.8 6.3v11.4c0 2.5-1 4-2.9 4.5 1.9.5 2.9 1.9 2.9 4.2v12.3c0 4.2-2.2 6.3-6.8 6.3h-14.6v-45zm14.8 17.5V91.7c0-.9-.1-1.4-.4-1.7-.3-.3-.9-.4-1.7-.4h-6.1v14.5h6.1c.9 0 1.4-.1 1.7-.4.3-.3.4-.8.4-1.7zm.1 20.4v-11.1c0-.9-.1-1.4-.4-1.7-.3-.3-.9-.4-1.7-.4h-6.1v15.3h6.1c.9 0 1.4-.1 1.7-.4.2-.3.4-.9.4-1.7zM37.2 20.4H22.4v45.1h14.8c4.5 0 6.7-2.1 6.7-6.3V26.7c0-4.2-2.2-6.3-6.7-6.3zm.2 37.9c0 .9-.1 1.4-.4 1.7-.3.3-.9.4-1.7.4H29V25.5h6.3c.9 0 1.4.1 1.7.4.3.3.4.8.4 1.7v30.7zM65.1 20.4h-8c-4.5 0-6.8 2.1-6.8 6.3v32.4c0 4.2 2.3 6.3 6.8 6.3h8c4.5 0 6.7-2.1 6.7-6.3V26.7c0-4.2-2.3-6.3-6.7-6.3zm.2 37.7c0 .9-.1 1.4-.4 1.7-.3.3-.9.4-1.7.4H59c-.9 0-1.4-.1-1.7-.4-.3-.3-.4-.8-.4-1.7V27.8c0-.9.1-1.4.4-1.7.3-.3.8-.4 1.7-.4h4.2c.9 0 1.4.1 1.7.4.3.3.4.8.4 1.7v30.3zM92.9 20.4h-8c-4.5 0-6.7 2.1-6.7 6.3v32.4c0 4.3 2.2 6.4 6.7 6.4h8c4.5 0 6.8-2.1 6.8-6.4V47.2H93v11.1c0 .9-.1 1.4-.4 1.7-.3.3-.8.4-1.7.4h-4c-.9 0-1.4-.1-1.7-.4-.3-.3-.4-.8-.4-1.7V27.6c0-.9.1-1.4.4-1.7.3-.3.9-.4 1.7-.4h4c.9 0 1.4.1 1.7.4.3.3.4.8.4 1.7v11.1h6.6v-12c.1-4.2-2.2-6.3-6.7-6.3zM127.6 59.2V20.4H121v37.7c0 .9-.1 1.4-.4 1.7-.3.3-.9.4-1.8.4h-4.1c-.9 0-1.4-.1-1.7-.4-.3-.3-.4-.8-.4-1.7V20.4H106v38.7c0 4.2 2.3 6.3 6.8 6.3h8c4.5.1 6.8-2 6.8-6.2zM61.1 124.3h10.7v5.3H54.3V84.5h6.8v39.8z"/>
+</g>
+<g id="eye-base">
+  <path d="M75 51.1c-28.8 0-52.2 20.5-52.2 23.9 0 3.4 23.4 23.9 52.2 23.9s52.2-20.6 52.2-23.9c0-3.3-23.4-23.9-52.2-23.9z" stroke="#fed82f" stroke-width="4"/>
+  <path  fill="#fff" d="M75 51.1c-28.8 0-52.2 20.5-52.2 23.9 0 3.4 23.4 23.9 52.2 23.9s52.2-20.6 52.2-23.9c0-3.3-23.4-23.9-52.2-23.9z"/>
+</g>
+<g id="pupil">
+  <path d="M80.8 59.4s-1.4-.2-5.6-.2c-4.3 0-5.6.2-5.6.2-6.3 0-9.5 3-9.5 8.9 0 0-.2 3.7-.2 5.9s.2 5.9.2 5.9c0 5.9 3.2 8.9 9.5 8.9 0 0 2.7.2 5.6.2 2.8 0 5.6-.2 5.6-.2 6.2 0 9.4-3 9.4-8.9 0 0 .1-3.4.1-5.9 0-2.5-.1-5.9-.1-5.9 0-5.9-3.1-8.9-9.4-8.9z" fill="#fed82f"/>
+  <path d="M79.7 62.4s-1.1-.1-4.5-.1-4.4.1-4.4.1c-5.1 0-7.6 2.4-7.6 7.1 0 0-.1 2.9-.1 4.7 0 1.8.1 4.7.1 4.7 0 4.7 2.5 7.1 7.6 7.1 0 0 2.2.1 4.4.1s4.5-.1 4.5-.1c5 0 7.5-2.4 7.5-7.1 0 0 .1-2.7.1-4.7s-.1-4.7-.1-4.7c0-4.8-2.5-7.1-7.5-7.1z"/>
+  <path fill="#fff" d="M67.5 59.3h-3.7c-2.1 0-3.1 1.1-3.1 3.3V66c0 2.2 1 3.3 3.1 3.3h3.7c2.1 0 3.1-1.1 3.1-3.3v-3.4c0-2.2-1-3.3-3.1-3.3z"/>
+</g>
+<g id="eye">
+  <path d="M75 56.1c22.2 0 40.3 13.5 45.6 18.9-5.4 5.4-23.4 18.9-45.6 18.9-22.5 0-40.4-13.5-45.7-18.9 5.3-5.4 23.2-18.9 45.7-18.9m0-5c-28.8 0-52.2 20.5-52.2 23.9 0 3.4 23.4 23.9 52.2 23.9s52.2-20.6 52.2-23.9c0-3.3-23.4-23.9-52.2-23.9z"/>
+</g>
+</svg> -->
+          </div>
+          <div id="background">
+            <img :src="image" alt="">
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!--   <div id="side-nav">
+  
+  </div> -->
+    <div id="controls">
+      <div class="inner">
+        <div class="col">
+
+          <h1>Customizer controls</h1>
+
+          <div class="input-field">
+            <label for="input-title">Edit Title</label>
+            <!--           <p>Edit the event title</p> -->
+            <input type="text" v-model="title" id="input-title">
+          </div>
+
+          <div class="input-field">
+            <label for="input-sub-title">Edit Sub title</label>
+            <!--           <p>Set this to something like the date and time of hte event</p> -->
+            <input type="text" v-model="date" id="input-sub-title">
+          </div>
+
+          <div class="input-field input-field--checkbox">
+            <input type="checkbox" v-model="logo" id="input-logo">
+            <label for="input-logo">Show Logo</label>
+            <p>Hide or show the logo</p>
+          </div>
+
+          <div class="input-field ">
+            <label for="input-background">Upload Background image 🌅</label>
+            <p>Upload and frame your image. If you dont have a image yet, check out <a href="https://unsplash.com"
+                target="_blank">Unsplash</a> for royalty free images.</p>
+            <input type="file" @change="onFileChange" id="input-background">
+          </div>
+
+        </div>
+        <div class="col">
+          <button id="download">Download <span>⬇️</span></button>
+
+          <h1>Generate facebook share/event image</h1>
+          <p>With this tool you can generate a social share image at the correct size (1200x630px). Just upload your
+            background image, frame it and style the rest.</p>
+
+          <p>The input fields in this container are used to configure and edit your content, just start typing and you
+            will directly see the changes your are making.</p>
+
+          <p>When you're done styling your image, click the <strong>Download <span>⬇️</span> </strong> button to
+            generate the image which will than be completly ready for you to share it on any social media!</p>
+
+          <p>Tool build by <a href="https://mvaneijgen.nl">@mvaneijgen</a>, if your are looking for any customisation,
+            just shoot me a message.</p>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+  <!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js'></script>
+  <script src='https://fastcdn.org/FileSaver.js/1.1.20151003/FileSaver.min.js'></script>
+  <script src="src/script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+<div id="app">
+  <!-- Place your email signatur code here -->
+  <div class="emailSignature">
+    <table style="border-collapse:collapse;border-spacing:0;font-size:12px;">
+      <tbody>
+        <tr>
+          <td style="padding-right:12px;">
+            <img width="75px" height="75px" src="https://www.holyfools.nl/mail/email-logo.jpg">
+          </td>
+          <td>
+            <div>
+              <a :href="'mailto:' + email + '@holyfools.nl'" style="color: #EA5F63; text-decoration: none;" id="nameEmail">{{name}}</a>
+              <a :href="'tel:' + phone" style="color: #EA5F63; text-decoration: none;">{{phone}}</a><br />
+              <br>
+            </div>
+            <div>
+              <a href="https://goo.gl/maps/w3gSe72r3mqF7qUy7" style="color: #EA5F63; text-decoration: none;">Kabelweg 42 Unit B</a><br />
+            </div>
+            <div>
+              <a href="https://goo.gl/maps/w3gSe72r3mqF7qUy7" style="color: #EA5F63; text-decoration: none;">1014 BB Amsterdam</a>
+              <a href="tel:+31202219600" style="color: #EA5F63; text-decoration: none;">+31(0)20 221 96 00</a><br />
+            </div>
+            <div style="vertical-align:top;color:#EA5F63;">
+              <a href="https://holyfools.nl" style="color: #EA5F63;">holyfools.nl</a>
+              <span> | </span>
+              <a href="https://www.facebook.com/foolsholy/" style="color: #EA5F63;">facebook</a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- END Place your email signatur code here -->
+  <aside>
+    <div class="inner">
+      <div id="controls">
+        <div class="title">
+          <h1>Email signature</h1>
+          <h3>Generator</h3>
+        </div>
+        <div class="input">
+          <label for="input-name">Name</label>
+          <input type="text" v-model="name" id="input-name">
+        </div>
+        <div class="input">
+          <label for="input-phone">Phone</label>
+          <input type="text" v-model="phone" id="input-phone">
+        </div>
+        <div class="input">
+          <label for="input-email">Email</label>
+          <input type="text" v-model="email" id="input-email">
+          <div class="description">only your name before the @ symbol</div>
+        </div>
+        <h4>Done?</h4>
+        <p>When you're done copy just the signature and paste it within your email program.</p>
+        <i>Version 2.1</i>
+      </div>
+      <footer>
+
+        <a href="https://studioalloy.nl" id="logo">
+          <img src="https://studioalloy.nl/_nuxt/img/a293d3c.svg">
+          <div>
+            <span>Powered by</span>
+            <span>Studio Alloy</span>
+          </div>
+        </a>
+
+      </footer>
+    </div>
+  </aside>
+</div>

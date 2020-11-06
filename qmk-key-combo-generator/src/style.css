@@ -1,0 +1,133 @@
+body {
+  background-color: #061a37;
+  max-width: 1000px;
+  margin: 0 auto;
+  font-family: sans-serif;
+}
+
+p,
+h1,
+h2 {
+  display: block;
+  color: #fff;
+  text-align: center;
+}
+
+a {
+  color: #fff;
+}
+
+.alloy-user-input {
+  padding: 15px;
+}
+.alloy-user-input > .row {
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+}
+.alloy-user-input > .row abbr {
+  margin: 0 5px 0 10px;
+  max-width: 10px;
+}
+.alloy-user-input > .row abbr,
+.alloy-user-input > .row span {
+  opacity: 0.3;
+  font-weight: 700;
+}
+.alloy-user-input > .row .plus:last-of-type {
+  display: none;
+}
+.alloy-user-input > .row .btn-group button:first-of-type {
+  min-height: 30px !important;
+}
+.alloy-user-input > .row .btn-group button:last-of-type {
+  min-height: 15px;
+}
+.alloy-user-input > .row button {
+  border: 0;
+  min-width: 30px;
+  max-width: 30px;
+  min-height: 30px;
+  height: auto;
+  font-size: 25px;
+  line-height: 0em;
+  padding: 0;
+  flex-grow: 1;
+  margin-top: 1px;
+  margin-bottom: 1px;
+}
+.alloy-user-input input {
+  padding: 10px 5px;
+  margin: 5px;
+  color: #fff;
+  width: 30%;
+  background-color: transparent;
+  border: 0;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+.alloy-user-input input:focus {
+  outline: none;
+  border-color: #fff;
+}
+.alloy-user-input .input-result {
+  min-width: 90px;
+  max-width: 90px;
+}
+
+.addCombo {
+  margin-top: 15px;
+}
+
+pre {
+  padding: 30px !important;
+  background-color: #08254e;
+  color: #fff;
+  margin-bottom: 45px;
+  border-radius: 3px;
+}
+pre:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.2);
+  outline-offset: 5px;
+}
+
+.scale-enter-active,
+.scale-leave-active {
+  transition: opacity 300ms;
+}
+
+.scale-enter,
+.scale-leave-to {
+  opacity: 0;
+}
+
+button {
+  color: #061a37;
+  font-weight: 700;
+  border: 0;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 5px 10px;
+  border-radius: 3px;
+  transition: background-color;
+  transition-duration: 300ms;
+  transition-timing-function: ease;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #fff;
+}
+button:active, button:focus {
+  outline-width: 1px;
+  outline-color: rgba(255, 255, 255, 0.2);
+  outline-offset: 1px;
+  border-radius: 3px;
+}
+
+.btn-group.addCombo {
+  text-align: center;
+}
+
+abbr[title] {
+  text-decoration: none;
+}

@@ -1,0 +1,144 @@
+$brand-one: #0ba;
+$brand-two: #f53;
+$brand-light: #fff;
+$brand-dark: #0c162d;
+* { box-sizing: border-box; }
+body {
+  overflow: hidden;
+}
+#app {
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  // overflow: hidden;
+  // background-color: red;
+}
+aside {
+    color: $brand-light;
+  height: 100vh;
+  // position: fixed;
+  // top: 0;
+  // left: 0;
+  background-color: $brand-dark;
+  // width: 20%;
+  // min-width: 300px;
+  
+  flex: 1 1 400px;
+  > .inner {
+    padding: 30px;
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: space-between;
+    // align-items: flex-start;
+    height: 100%;
+    overflow-y: auto;
+  }
+}
+#generated {
+  overflow: hidden;
+  // background-color: red;
+  width: 80%;
+  height: 100vh;
+  // height: 100%;
+  flex: 0 1 100%;
+}
+canvas {
+  width: 100%;
+    height: 100vh;
+  // flex: 0 0 100%;
+// transform: scale(0.4);
+}
+form {
+  width: 100%;
+}
+.input {
+  width: 100%;
+  margin-bottom: 20px;
+  label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 20px;
+    &.description {
+          display: inline;
+    font-weight: 40;
+    }
+  }
+  button {
+    width: 49%;
+    margin-bottom: 0;
+    // padding: 0 2px;
+    margin: 0 1px;
+    // border: 1px solid $brand-light;
+    &:first-child {
+      background-color: lighten($brand-two, 4%);
+    }
+  }
+  input {
+    width: 100%;
+  }
+}
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 15px;
+  border-radius: 5px;   
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+  
+&::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%; 
+  background: $brand-two;
+  cursor: pointer;
+}
+
+&::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #4CAF50;
+  cursor: pointer;
+}
+}
+input[type="radio"],
+input[type="checkbox"] {
+  width: auto;
+}
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: $brand-two;
+  color: $brand-light;
+  font-weight: 700;
+  border: 0;
+  margin-bottom: 20px;
+}
+.btn-alt {
+  background-color: #ccc;
+  color: $brand-dark;
+}
+button[disabled] {
+  background-color: #ccc;
+  color: #666;
+}
+#download {
+  // visibility: hidden;
+  // display: none;
+  opacity: 0;
+position: absolute;
+top: 0;
+left: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+canvas {
+  background-color: $brand-light;
+}

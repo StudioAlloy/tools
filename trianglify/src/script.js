@@ -1,0 +1,87 @@
+var app = new Vue({
+  el: '#app',
+  data: {
+    message: 'Hello Vue!',
+    options: {
+      // width: window.innerWidth,
+      // height: window.innerHeight,
+      width: document.querySelector('#generated').clientWidth,
+      height: document.querySelector('#generated').clientHeight,
+      cellSize: 200,
+      xColors: ['#E5541B', '#E2762C', '#FFB786'],
+      // // ⚙️ Others
+      // variance: 0.75,
+      seed: 'banaan',
+      // yColors: "match", 
+      // colorSpace: "lab",
+      // colorFunction: trianglify.colorFunctions.interpolateLinear(0.5),
+      // Create 🕸 web like pattern 
+      strokeWidth: 2,
+      fill: true
+      // END Create 🕸 web like pattern 
+      // points: null
+    },
+    trianglify: null },
+
+  computed: {
+    colorMin: function () {
+      return this.options.xColors.length <= 3;
+    },
+    colorMax: function () {
+      return this.options.xColors.length >= 7;
+    } },
+
+  methods: {
+    randomize: function () {
+      let r = Math.random().toString(36).substring(7);
+      this.options.seed = r;
+      this.generate();
+    },
+    generate: function () {
+      // this.options.width = document.querySelector('#generated').clientWidth;
+      // this.options.height = document.querySelector('#generated').clientHeight;
+      const pattern = trianglify(this.options);
+      // 👁 Vissable 
+      document.querySelector('#generated').innerHTML = '';
+      document.querySelector('#generated').appendChild(pattern.toCanvas());
+      // ⬇️ Hidden download 
+      let settings = {
+        ...this.options };
+
+      settings.width = 2500;
+      settings.height = 2500;
+      console.warn(settings);
+      const download = trianglify(settings);
+      document.querySelector('#download').innerHTML = '';
+      document.querySelector('#download').appendChild(download.toCanvas());
+    },
+    decrement: function () {
+      this.options.xColors.pop();
+    },
+    increment: function () {
+      const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+
+      this.options.xColors.push("#" + randomColor);
+    },
+    downloadImage: function () {
+      const capture = document.querySelector("#download canvas");
+
+      // console.warn(this.trianglify);
+      html2canvas(capture, {
+        width: 2500,
+        height: 2500,
+        // scale: 3,
+        allowTaint: true,
+        onrendered: function (canvas) {
+          canvas.toBlob(function (blob) {
+            saveAs(blob, "social.jpg");
+          }, "image/jpeg");
+        } });
+
+
+    } },
+
+  mounted() {
+    this.generate();
+    // document.body.style.zoom = "40%";
+  } });

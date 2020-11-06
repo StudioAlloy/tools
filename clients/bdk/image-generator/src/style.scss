@@ -1,0 +1,436 @@
+//------------------------------------------------------//
+// The real Bootstrap way to load in media queries.
+// And here is an example
+//     @include media-breakpoint-up(md) {
+//       // YOUR MQ CODE
+//     }
+//------------------------------------------------------//
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+)
+!default; // Breakpoint viewport sizes and media queries.
+//
+// Breakpoints are defined as a map of (name: minimum width), order from small to large:
+//
+//    (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px)
+//
+// The map defined in the `$grid-breakpoints` global variable is used as the `$breakpoints` argument by default.
+// Name of the next breakpoint, or null for the last breakpoint.
+//
+//    >> breakpoint-next(sm)
+//    md
+//    >> breakpoint-next(sm, (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px))
+//    md
+//    >> breakpoint-next(sm, $breakpoint-names: (xs sm md lg xl))
+//    md
+@function breakpoint-next($name, $breakpoints: $grid-breakpoints, $breakpoint-names: map-keys($breakpoints)) {
+  $n: index($breakpoint-names, $name);
+  @return if($n < length($breakpoint-names), nth($breakpoint-names, $n + 1), null);
+}
+// Minimum breakpoint width. Null for the smallest (first) breakpoint.
+//
+//    >> breakpoint-min(sm, (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px))
+//    576px
+@function breakpoint-min($name, $breakpoints: $grid-breakpoints) {
+  $min: map-get($breakpoints, $name);
+  @return if($min != 0, $min, null);
+}
+// Maximum breakpoint width. Null for the largest (last) breakpoint.
+// The maximum value is calculated as the minimum of the next one less 0.1.
+//
+//    >> breakpoint-max(sm, (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px))
+//    767px
+@function breakpoint-max($name, $breakpoints: $grid-breakpoints) {
+  $next: breakpoint-next($name, $breakpoints);
+  @return if($next, breakpoint-min($next, $breakpoints) - 1px, null);
+}
+// Returns a blank string if smallest breakpoint, otherwise returns the name with a dash infront.
+// Useful for making responsive utilities.
+//
+//    >> breakpoint-infix(xs, (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px))
+//    ""  (Returns a blank string)
+//    >> breakpoint-infix(sm, (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px))
+//    "-sm"
+@function breakpoint-infix($name, $breakpoints: $grid-breakpoints) {
+  @return if(breakpoint-min($name, $breakpoints) == null, '', '-#{$name}');
+}
+// Media of at least the minimum breakpoint width. No query for the smallest breakpoint.
+// Makes the @content apply to the given breakpoint and wider.
+@mixin media-breakpoint-up($name, $breakpoints: $grid-breakpoints) {
+  $min: breakpoint-min($name, $breakpoints);
+  @if $min {
+    @media (min-width: $min) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+// Media of at most the maximum breakpoint width. No query for the largest breakpoint.
+// Makes the @content apply to the given breakpoint and narrower.
+@mixin media-breakpoint-down($name, $breakpoints: $grid-breakpoints) {
+  $max: breakpoint-max($name, $breakpoints);
+  @if $max {
+    @media (max-width: $max) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+// Media that spans multiple breakpoint widths.
+// Makes the @content apply between the min and max breakpoints
+@mixin media-breakpoint-between($lower, $upper, $breakpoints: $grid-breakpoints) {
+  $min: breakpoint-min($lower, $breakpoints);
+  $max: breakpoint-max($upper, $breakpoints);
+  @if $min != null and $max != null {
+    @media (min-width: $min) and (max-width: $max) {
+      @content;
+    }
+  } @else 
+  if $max == null {
+    @include media-breakpoint-up($lower) {
+      @content;
+    }
+  } @else 
+  if $min == null {
+    @include media-breakpoint-down($upper) {
+      @content;
+    }
+  }
+}
+// Media between the breakpoint's minimum and maximum widths.
+// No minimum for the smallest breakpoint, and no maximum for the largest one.
+// Makes the @content apply only to the given breakpoint, not viewports any wider or narrower.
+@mixin media-breakpoint-only($name, $breakpoints: $grid-breakpoints) {
+  $min: breakpoint-min($name, $breakpoints);
+  $max: breakpoint-max($name, $breakpoints);
+  @if $min != null and $max != null {
+    @media (min-width: $min) and (max-width: $max) {
+      @content;
+    }
+  } @else 
+  if $max == null {
+    @include media-breakpoint-up($name) {
+      @content;
+    }
+  } @else 
+  if $min == null {
+    @include media-breakpoint-down($name) {
+      @content;
+    }
+  }
+}
+//------------------------------------------------------//
+// END The real Bootstrap way to load in media queries.
+//------------------------------------------------------//
+@import url("https://fonts.googleapis.com/css?family=Teko:400,700");
+//------------------------------------------------------//
+// Styling
+//------------------------------------------------------//
+$brand-one: #fed82f;
+$brand-two: #e64;
+$brand-three: #f5f5b8;
+$brand-four: #172713;
+$brand-light: #fff;
+$brand-dark: #000;
+$brand-grey: #ccc;
+
+$base-one: #344;
+$base-two: #0ba;
+$base-margin: 15px;
+
+#export-image {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 400;
+    text-transform: uppercase;
+    background-color: $brand-one;
+    padding: 15px;
+    line-height: 0.8em;
+    display: inline-block;
+    padding: 23px 30px 15px 23px;
+    margin: 0;
+    font-size: 50px;
+    // font-size: 5vw;
+  }
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    background-color: #000;
+    color: #fff;
+    font-size: 50px;
+    // font-size: 3.5vw;
+  }
+
+  #title {
+    font-family: "Teko", sans-serif;
+    font-weight: 400;
+    > * {
+      display: block;
+      pointer-events: none;
+      &:last-child {
+        display: inline-block;
+      }
+    }
+  }
+  #logo {
+    width: 60px;
+    height: 60px;
+    background-color: $brand-light;
+    padding: 5px;
+    opacity: 0;
+    
+    &.show {
+      opacity: 1;
+    }
+  }
+}
+
+//------------------------------------------------------//
+// END Styling
+//------------------------------------------------------//
+//------------------------------------------------------//
+// User interface
+//------------------------------------------------------//
+#side-nav,
+#controls {
+  background-color: $base-one;
+  padding: $base-margin*2;
+  h1, 
+  h2,
+  h3,
+  h5,
+  h6,
+  p,
+  label,
+  a {
+    color: $brand-light;
+  }
+  
+}
+#controls {
+  position: relative;
+  width: 100%;
+  .inner {
+    max-width: 1110px;
+    margin-left: auto;
+    margin-right: auto;
+    @include media-breakpoint-up(md) {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    .col {
+      position: relative;
+      flex: 1;
+      padding: $base-margin*2;
+    }
+}
+      
+  }
+}
+.input-field {
+  margin-bottom: $base-margin *2;
+  label {
+    font-weight: bold;
+    // margin-bottom: $base-margin/2;
+    display: block;
+  }
+  p {
+    font-size: 0.8rem;
+    margin-bottom: $base-margin/2;
+  }
+  input {
+    width: 100%;
+  }
+}
+input {
+  padding: $base-margin / 2 $base-margin - 5;
+  font-size: 1rem;
+  border: none;
+  border-bottom: 2px solid $brand-light;;
+  
+  &:focus {
+    outline: none;
+    border-color: $brand-dark;
+    
+  }
+}
+.input-field--checkbox {
+  label {
+    display: inline-block !important;
+  }
+}
+input[type="checkbox"] {
+  display: inline-block;
+  width: auto;
+  transform: translatey(-3px);
+}
+input[type="file"] {
+  background-color: rgba($brand-dark, .1);
+  padding: $base-margin *2;
+  color: $brand-light;
+}
+button,
+.btn {
+  font-size: 32px;
+  background-color: $base-two;
+  // color: $brand-light;
+  font-weight: bold;
+  padding: $base-margin/2 $base-margin;
+  border: 2px solid $base-two;
+  // border-radius: 50px;
+  transition: background-color, color, opacity;
+  transition-duration: 300ms;
+  transition-timing-function: ease;
+
+  &:hover {
+    background-color: $brand-light;
+    color: $brand-dark;
+  }
+  &:disabled {
+    // opacity: .4;
+    cursor:not-allowed;
+    background-color: $brand-grey;
+    border-color: $brand-grey;
+    &:hover {
+    background-color: $brand-grey;
+    border-color: $brand-grey;
+  }
+  }
+}
+#download {
+  // position: absolute;
+  // top: -$base-margin*4;
+  // right: 0;
+
+  font-size: 34px;
+  width: 100%;
+  margin-bottom: $base-margin*2;
+  span {
+    margin-left: $base-margin;
+    transform: translateY(3px);
+    display: inline-block;
+  }
+}
+//------------------------------------------------------//
+// END User interface
+//------------------------------------------------------//
+//------------------------------------------------------//
+// App logic
+//------------------------------------------------------//
+canvas,
+#export-image {
+  width: 1200px;
+  height: 630px;
+}
+#export-image {
+  position: relative;
+  overflow: hidden;
+  background-color: pink;
+  background-image: url(http://alloy.work/codepen/JdyrZP-jeremia.jpg);
+
+  #background {
+    position: relative;
+    width: 120%;
+    height: 1500vmax;
+    img {
+      display: block;
+      position: absolute;
+      max-width: 100%;
+      z-index: 1;
+    }
+  }
+  #background,
+  #logo {
+    svg,
+    img {
+      pointer-events: none;      
+    }
+  }
+}
+// #background,
+#pletterij,
+#logo,
+#title {
+  cursor: move;
+  position: absolute;
+  z-index: 99999999;
+}
+#title {
+  top: $base-margin * 5;
+  left: $base-margin * 5;
+}
+#logo {
+  right: $base-margin * 5;
+  bottom: $base-margin * 5;
+  img {
+    max-width: 100%;
+  }
+}
+//------------------------------------------------------//
+// END App logic
+//------------------------------------------------------//
+
+//------------------------------------------------------//
+// Extra
+//------------------------------------------------------//
+.container {
+  width: 100%;
+  padding: $base-margin * 2 0;
+}
+#export-image {
+  margin: 0 auto;
+}
+
+iframe#cp_embed_zwXPjX {
+  transform: translateY(-50px);
+  height: calc(100vh + 50px);
+  border: 0;
+}
+#tool * {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.4em;
+  font-family: sans-serif;
+}
+h1 {
+  font-size: 24px;
+  font-weight: bold;
+    margin-bottom: $base-margin;
+}
+strong {
+  font-weight: bold;
+}
+p {
+  margin-bottom: $base-margin;
+}
+a {
+  color: $brand-dark;
+}
+//------------------------------------------------------//
+// END Extra
+//------------------------------------------------------//

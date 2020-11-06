@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Trianglify image generator low poly pattern generator </title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel="stylesheet" href=".src/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+
+</head>
+
+<body>
+  <!-- partial:index.partial.html -->
+  <!-- <script src='https://unpkg.com/trianglify@^4/dist/trianglify.bundle.js'></script> -->
+
+  <div id="app">
+    <aside>
+      <div class="inner">
+        <h1>Generator</h1>
+        <form action="#" @change.prevent="generate" @submit.prevent="generate">
+          <div class="input">
+            <label for="cellSize">Cell size</label>
+            <input type="range" id="cellSize" name="points" min="10" max="300" step="10" v-model="options.cellSize">
+          </div>
+          <h3>Colors</h3>
+          <div class="input" v-for="(item, index) in options.xColors" :key="index">
+            <label for="head">Color {{index + 1}}</label>
+            <input type="color" id="head" name="head" :value="item" v-model="options.xColors[index]">
+          </div>
+          <div class="input">
+            <label for="numberColors">Number of colors</label>
+            <!--           <input type="number" id="numberColors" name="tentacles" :value="options.xColors.length" min="2" max="10"> -->
+            <button @click="decrement" :disabled="colorMin">-</button><button @click="increment"
+              :disabled="colorMax">+</button>
+          </div>
+
+          <div class="input">
+            <label for="web">🕸 Web pattern</label>
+            <input type="checkbox" id="web" name="points" min="10" max="300" step="10" v-model="options.fill">
+            <label for="web" class="description">remove fill color</label>
+          </div>
+          <div class="input" v-if="!options.fill">
+            <label for="strokeWidth">Stroke width</label>
+            <input type="range" id="strokeWidth" name="points" min="1" max="20" step="1" v-model="options.strokeWidth">
+          </div>
+
+        </form>
+        <button class="btn-alt" @click="randomize">Randomize</button>
+        <button @click="downloadImage">Download</button>
+      </div>
+    </aside>
+    <div id="generated">
+      <!-- Generated canvas -->
+    </div>
+    <div id="download"></div>
+  </div>
+  <!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js'></script>
+  <script src='https://unpkg.com/trianglify@4.0.0/dist/trianglify.bundle.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.2/FileSaver.min.js'></script>
+  <script src="src/script.js"></script>
+
+</body>
+
+</html>

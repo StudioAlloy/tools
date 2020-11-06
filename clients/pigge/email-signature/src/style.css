@@ -1,0 +1,96 @@
+#app {
+  padding: 30px;
+}
+
+.emailSignature {
+  width: calc(100vh - 300px);
+}
+
+aside {
+  position: fixed;
+  right: 0;
+  top: 0;
+  background-color: #0c162d;
+  width: 300px;
+  padding: 30px;
+  height: 100vh;
+  color: #fff;
+  overflow-y: scroll;
+}
+aside .inner {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+aside .title {
+  margin-bottom: 30px;
+}
+aside .title h1 {
+  opacity: 0.7;
+  font-size: 30px;
+}
+aside .title h3 {
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 2px;
+  font-weight: normal;
+  transform: translatex(2px) translatey(-5px);
+}
+aside .title h1, aside .title h3 {
+  margin: 0;
+}
+aside #controls {
+  width: 100%;
+}
+aside label {
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 10px;
+  display: block;
+}
+aside input {
+  padding: 5px 10px;
+  width: 100%;
+  color: #000;
+}
+aside .input {
+  margin-bottom: 20px;
+}
+aside .input .description {
+  font-size: 12px;
+  margin-top: 10px;
+}
+aside #logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+}
+aside #logo img {
+  margin-right: 10px;
+  width: 70px;
+}
+aside #logo span {
+  display: block;
+  font-size: 12px;
+}
+aside #logo span:last-of-type {
+  font-weight: 700;
+  font-size: 20px;
+}
+
+pre {
+  background-color: #eee;
+  padding: 10px;
+  margin: 10px;
+  border: 2px solid #ccc;
+  width: 400px;
+  font-size: 16px;
+}
+
+* {
+  box-sizing: border-box;
+}
