@@ -40,7 +40,7 @@
         <div id="controls">
           <div class="inner">
             <h2 class="alloy-title">🎛️ Controls</h2>
-            <form action="#" @change.prevent="generate" @submit.prevent="generate">
+            <form action="#" @submit.prevent="downloadImage">
 
               <div class="input file-upload">
                 <label for="image">Image</label>
@@ -86,7 +86,8 @@
                     <option value="1">Facebook</option>
                   </select>
                 </div>
-                <button @click="downloadImage" :disabled="!image">Download</button>
+                <input type="submit" value="Download" :disabled="!image">
+                <!-- <button @click="downloadImage" :disabled="!image">Download</button> -->
               </div>
 
             </form>

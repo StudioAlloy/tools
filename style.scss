@@ -1,0 +1,295 @@
+$brand-one: #85dbda;
+$brand-two: #f53;
+$brand-light: #fff;
+$brand-dark-lighten: #19233b;
+$brand-dark: #0c162d;
+$brand-grey: #637192;
+$base-margin: 15px;
+$alloy-container: 1110px;
+//------------------------------------------------------//
+// The real Bootstrap way to load in media queries.
+// And here is an example
+//     @include media-breakpoint-up(md) {
+//       // YOUR MQ CODE
+//     }
+//------------------------------------------------------//
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+) !default; // Breakpoint viewport sizes and media queries.
+//
+// Breakpoints are defined as a map of (name: minimum width), order from small to large:
+//
+//    (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px)
+//
+// The map defined in the `$grid-breakpoints` global variable is used as the `$breakpoints` argument by default.
+// Name of the next breakpoint, or null for the last breakpoint.
+//
+//    >> breakpoint-next(sm)
+//    md
+//    >> breakpoint-next(sm, (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px))
+//    md
+//    >> breakpoint-next(sm, $breakpoint-names: (xs sm md lg xl))
+//    md
+@function breakpoint-next($name, $breakpoints: $grid-breakpoints, $breakpoint-names: map-keys($breakpoints)) {
+  $n: index($breakpoint-names, $name);
+  @return if($n < length($breakpoint-names), nth($breakpoint-names, $n + 1), null);
+}
+// Minimum breakpoint width. Null for the smallest (first) breakpoint.
+//
+//    >> breakpoint-min(sm, (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px))
+//    576px
+@function breakpoint-min($name, $breakpoints: $grid-breakpoints) {
+  $min: map-get($breakpoints, $name);
+  @return if($min != 0, $min, null);
+}
+// Maximum breakpoint width. Null for the largest (last) breakpoint.
+// The maximum value is calculated as the minimum of the next one less 0.1.
+//
+//    >> breakpoint-max(sm, (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px))
+//    767px
+@function breakpoint-max($name, $breakpoints: $grid-breakpoints) {
+  $next: breakpoint-next($name, $breakpoints);
+  @return if($next, breakpoint-min($next, $breakpoints) - 1px, null);
+}
+// Returns a blank string if smallest breakpoint, otherwise returns the name with a dash infront.
+// Useful for making responsive utilities.
+//
+//    >> breakpoint-infix(xs, (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px))
+//    ""  (Returns a blank string)
+//    >> breakpoint-infix(sm, (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px))
+//    "-sm"
+@function breakpoint-infix($name, $breakpoints: $grid-breakpoints) {
+  @return if(breakpoint-min($name, $breakpoints) == null, "", "-#{$name}");
+}
+// Media of at least the minimum breakpoint width. No query for the smallest breakpoint.
+// Makes the @content apply to the given breakpoint and wider.
+@mixin media-breakpoint-up($name, $breakpoints: $grid-breakpoints) {
+  $min: breakpoint-min($name, $breakpoints);
+  @if $min {
+    @media (min-width: $min) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+// Media of at most the maximum breakpoint width. No query for the largest breakpoint.
+// Makes the @content apply to the given breakpoint and narrower.
+@mixin media-breakpoint-down($name, $breakpoints: $grid-breakpoints) {
+  $max: breakpoint-max($name, $breakpoints);
+  @if $max {
+    @media (max-width: $max) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+// Media that spans multiple breakpoint widths.
+// Makes the @content apply between the min and max breakpoints
+@mixin media-breakpoint-between($lower, $upper, $breakpoints: $grid-breakpoints) {
+  $min: breakpoint-min($lower, $breakpoints);
+  $max: breakpoint-max($upper, $breakpoints);
+  @if $min != null and $max != null {
+    @media (min-width: $min) and (max-width: $max) {
+      @content;
+    }
+  } @else if $max == null {
+    @include media-breakpoint-up($lower) {
+      @content;
+    }
+  } @else if $min == null {
+    @include media-breakpoint-down($upper) {
+      @content;
+    }
+  }
+}
+// Media between the breakpoint's minimum and maximum widths.
+// No minimum for the smallest breakpoint, and no maximum for the largest one.
+// Makes the @content apply only to the given breakpoint, not viewports any wider or narrower.
+@mixin media-breakpoint-only($name, $breakpoints: $grid-breakpoints) {
+  $min: breakpoint-min($name, $breakpoints);
+  $max: breakpoint-max($name, $breakpoints);
+  @if $min != null and $max != null {
+    @media (min-width: $min) and (max-width: $max) {
+      @content;
+    }
+  } @else if $max == null {
+    @include media-breakpoint-up($name) {
+      @content;
+    }
+  } @else if $min == null {
+    @include media-breakpoint-down($name) {
+      @content;
+    }
+  }
+}
+//------------------------------------------------------//
+// END The real Bootstrap way to load in media queries.
+//------------------------------------------------------//
+
+//------------------------------------------------------//
+// Reset
+//------------------------------------------------------//
+* {
+  box-sizing: border-box;
+}
+body {
+  // overflow: hidden;
+  background-color: $brand-dark-lighten;
+}
+a {
+  color: $brand-light;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+  margin-bottom: $base-margin;
+}
+// END Reset -------------------------------------//
+main {
+  padding-top: $base-margin * 3;
+  color: $brand-light;
+  min-height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+.intro {
+  margin-bottom: $base-margin * 3;
+}
+.alloy-container {
+  width: $alloy-container;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.item-list {
+  display: flex;
+  justify-content: space-between;
+  flex-flow: row wrap;
+
+  .item {
+    width: 48%;
+    margin-bottom: $base-margin * 3;
+    background-color: $brand-light;
+    color: $brand-dark;
+    border-radius: 5px;
+    overflow: hidden;
+    text-decoration: none;
+    transition: transform;
+    transition-duration: 300ms;
+    transition-timing-function: ease;
+
+    &:hover {
+      transform: scale(1.02);
+    }
+
+    .alloy-image {
+      width: 100%;
+      height: 250px;
+      background-color: $brand-grey;
+
+      img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .content {
+      padding: $base-margin * 2;
+    }
+    &[data-disabled="true"] {
+      pointer-events: none;
+      opacity: 0.8;
+      .btn {
+        background-color: $brand-grey;
+      }
+      &:hover {
+        transform: scale(1);
+      }
+    }
+  }
+}
+.btn {
+  display: inline-block;
+  margin-top: $base-margin;
+  background-color: $brand-two;
+  color: $brand-light;
+  padding: 5px 10px;
+}
+//------------------------------------------------------//
+// Sidebar
+//------------------------------------------------------//
+aside {
+  order: -1;
+  @include media-breakpoint-up(lg) {
+    order: 1;
+  }
+  color: $brand-light;
+  width: 100%;
+  background-color: $brand-dark;
+  > .inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    overflow-y: auto;
+  }
+}
+#intro {
+  @include media-breakpoint-up(lg) {
+    order: 2;
+  }
+  background-color: $brand-grey;
+  > .inner {
+    width: $alloy-container;
+    max-width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: $base-margin * 2;
+    @include media-breakpoint-down(md) {
+      flex-direction: column;
+    }
+  }
+}
+#logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+  img {
+    margin-right: 10px;
+    width: 70px;
+  }
+  span {
+    display: block;
+    font-size: 12px;
+    &:last-of-type {
+      font-weight: 700;
+      font-size: 20px;
+    }
+  }
+}
+#version {
+  opacity: 0.3;
+  text-align: center;
+  font-size: 14px;
+  text-transform: uppercase;
+  margin-top: $base-margin;
+}
+
+// END Sidebar -------------------------------------//

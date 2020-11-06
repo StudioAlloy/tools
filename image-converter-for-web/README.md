@@ -6,3 +6,5 @@ To edit this project you must have vscode installed. And some other tools
 
 - [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer), this will open a local webserver 
 - [Live SASS Compiler](https://marketplace.visualstudio.com/items?itemName=ritwickdey.live-sass), automaticly will watch your SCSS files and compile them to CSS
+
+If you edit the file please update the version number with 0.1 points (in `script.js` )
