@@ -1,10 +1,18 @@
+$brand-one: #85dbda;
+$brand-two: #f53;
+$brand-light: #fff;
+$brand-dark: #0c162d;
+$brand-grey: #637192;
+$base-margin: 15px;
 #app {
   padding: 30px;
 }
+
 .emailSignature {
   width: calc(100vh - 300px);
 }
 aside {
+  line-height: 1.5em;
   position: fixed;
   right: 0;
   top: 0;
@@ -15,13 +23,13 @@ aside {
   color: #fff;
   .inner {
     height: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: column;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
   }
   overflow-y: scroll;
-  .title{
+  .title {
     margin-bottom: 30px;
     h1 {
       opacity: 0.7;
@@ -34,14 +42,22 @@ aside {
       font-weight: normal;
       transform: translatex(2px) translatey(-5px);
     }
-    h1, h3 {
+    h1,
+    h3 {
       margin: 0;
-      
     }
   }
   #controls {
-  width: 100%;
-}
+    width: 100%;
+  }
+  h3,
+  h4,
+  p {
+    margin: 0;
+  }
+  p {
+    margin-bottom: $base-margin;
+  }
   label {
     font-weight: 700;
     font-size: 16px;
@@ -53,12 +69,24 @@ aside {
     width: 100%;
     color: #000;
   }
-    .input {
+  .input {
     margin-bottom: 20px;
-      .description {
-        font-size: 12px;
-        margin-top: 10px;
-      }
+    .description {
+      font-size: 12px;
+      margin-top: 10px;
+    }
+  }
+  .description {
+    margin-bottom: 10px;
+  }
+  h4 {
+    margin-bottom: 0;
+  }
+  [type="color"] {
+    padding: 2px;
+  }
+  a {
+    color: #fff;
   }
   #logo {
     display: flex;
@@ -80,6 +108,7 @@ aside {
     }
   }
 }
+
 pre {
   background-color: #eee;
   padding: 10px;

@@ -75,7 +75,7 @@ var app = new Vue({
 
       let currentQuailty = Number(this.convertQuailty);
       let name = this.updateFileName;
-      console.warn('test');
+
       html2canvas(this.$refs.download, {
         scale: this.size
       }).
