@@ -15,6 +15,7 @@
   margin: 0;
   font-size: 50px;
 }
+
 #export-image h2,
 #export-image h3,
 #export-image h4,
@@ -24,17 +25,21 @@
   color: #fff;
   font-size: 50px;
 }
+
 #export-image #title {
   font-family: "Teko", sans-serif;
   font-weight: 400;
 }
+
 #export-image #title > * {
   display: block;
   pointer-events: none;
 }
+
 #export-image #title > *:last-child {
   display: inline-block;
 }
+
 #export-image #logo {
   width: 60px;
   height: 60px;
@@ -42,6 +47,7 @@
   padding: 5px;
   opacity: 0;
 }
+
 #export-image #logo.show {
   opacity: 1;
 }
@@ -51,6 +57,7 @@
   background-color: #344;
   padding: 30px;
 }
+
 #side-nav h1,
 #side-nav h2,
 #side-nav h3,
@@ -74,20 +81,30 @@
   position: relative;
   width: 100%;
 }
+
 #controls .inner {
   max-width: 1110px;
   margin-left: auto;
   margin-right: auto;
 }
+
 @media (min-width: 768px) {
   #controls .inner {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
   }
   #controls .inner .col {
     position: relative;
-    flex: 1;
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
     padding: 30px;
   }
 }
@@ -95,14 +112,17 @@
 .input-field {
   margin-bottom: 30px;
 }
+
 .input-field label {
   font-weight: bold;
   display: block;
 }
+
 .input-field p {
   font-size: 0.8rem;
   margin-bottom: 7.5px;
 }
+
 .input-field input {
   width: 100%;
 }
@@ -113,6 +133,7 @@ input {
   border: none;
   border-bottom: 2px solid #fff;
 }
+
 input:focus {
   outline: none;
   border-color: #000;
@@ -125,7 +146,8 @@ input:focus {
 input[type="checkbox"] {
   display: inline-block;
   width: auto;
-  transform: translatey(-3px);
+  -webkit-transform: translatey(-3px);
+          transform: translatey(-3px);
 }
 
 input[type="file"] {
@@ -141,21 +163,27 @@ button,
   font-weight: bold;
   padding: 7.5px 15px;
   border: 2px solid #0ba;
+  -webkit-transition: background-color, color, opacity;
   transition: background-color, color, opacity;
-  transition-duration: 300ms;
-  transition-timing-function: ease;
+  -webkit-transition-duration: 300ms;
+          transition-duration: 300ms;
+  -webkit-transition-timing-function: ease;
+          transition-timing-function: ease;
 }
+
 button:hover,
 .btn:hover {
   background-color: #fff;
   color: #000;
 }
+
 button:disabled,
 .btn:disabled {
   cursor: not-allowed;
   background-color: #ccc;
   border-color: #ccc;
 }
+
 button:disabled:hover,
 .btn:disabled:hover {
   background-color: #ccc;
@@ -167,9 +195,11 @@ button:disabled:hover,
   width: 100%;
   margin-bottom: 30px;
 }
+
 #download span {
   margin-left: 15px;
-  transform: translateY(3px);
+  -webkit-transform: translateY(3px);
+          transform: translateY(3px);
   display: inline-block;
 }
 
@@ -185,17 +215,20 @@ canvas,
   background-color: pink;
   background-image: url(http://alloy.work/codepen/JdyrZP-jeremia.jpg);
 }
+
 #export-image #background {
   position: relative;
   width: 120%;
   height: 1500vmax;
 }
+
 #export-image #background img {
   display: block;
   position: absolute;
   max-width: 100%;
   z-index: 1;
 }
+
 #export-image #background svg,
 #export-image #background img,
 #export-image #logo svg,
@@ -220,6 +253,7 @@ canvas,
   right: 75px;
   bottom: 75px;
 }
+
 #logo img {
   max-width: 100%;
 }
@@ -234,7 +268,8 @@ canvas,
 }
 
 iframe#cp_embed_zwXPjX {
-  transform: translateY(-50px);
+  -webkit-transform: translateY(-50px);
+          transform: translateY(-50px);
   height: calc(100vh + 50px);
   border: 0;
 }
@@ -244,7 +279,6 @@ iframe#cp_embed_zwXPjX {
   /* iOS Safari */
   -webkit-user-select: none;
   /* Safari */
-  -khtml-user-select: none;
   /* Konqueror HTML */
   -moz-user-select: none;
   /* Firefox */
@@ -252,11 +286,12 @@ iframe#cp_embed_zwXPjX {
   /* Internet Explorer/Edge */
   user-select: none;
   /* Non-prefixed version, currently
-               supported by Chrome and Opera */
+                                  supported by Chrome and Opera */
 }
 
 * {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 body {
@@ -283,3 +318,4 @@ p {
 a {
   color: #000;
 }
+/*# sourceMappingURL=style.css.map */

@@ -20,31 +20,44 @@ a {
 .alloy-user-input {
   padding: 15px;
 }
+
 .alloy-user-input > .row {
   padding-bottom: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   color: #fff;
 }
+
 .alloy-user-input > .row abbr {
   margin: 0 5px 0 10px;
   max-width: 10px;
 }
+
 .alloy-user-input > .row abbr,
 .alloy-user-input > .row span {
   opacity: 0.3;
   font-weight: 700;
 }
+
 .alloy-user-input > .row .plus:last-of-type {
   display: none;
 }
+
 .alloy-user-input > .row .btn-group button:first-of-type {
   min-height: 30px !important;
 }
+
 .alloy-user-input > .row .btn-group button:last-of-type {
   min-height: 15px;
 }
+
 .alloy-user-input > .row button {
   border: 0;
   min-width: 30px;
@@ -54,10 +67,13 @@ a {
   font-size: 25px;
   line-height: 0em;
   padding: 0;
-  flex-grow: 1;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
   margin-top: 1px;
   margin-bottom: 1px;
 }
+
 .alloy-user-input input {
   padding: 10px 5px;
   margin: 5px;
@@ -67,10 +83,12 @@ a {
   border: 0;
   border-bottom: 2px solid rgba(255, 255, 255, 0.2);
 }
+
 .alloy-user-input input:focus {
   outline: none;
   border-color: #fff;
 }
+
 .alloy-user-input .input-result {
   min-width: 90px;
   max-width: 90px;
@@ -87,6 +105,7 @@ pre {
   margin-bottom: 45px;
   border-radius: 3px;
 }
+
 pre:focus {
   outline: 2px solid rgba(255, 255, 255, 0.2);
   outline-offset: 5px;
@@ -94,6 +113,7 @@ pre:focus {
 
 .scale-enter-active,
 .scale-leave-active {
+  -webkit-transition: opacity 300ms;
   transition: opacity 300ms;
 }
 
@@ -109,14 +129,19 @@ button {
   background-color: rgba(255, 255, 255, 0.2);
   padding: 5px 10px;
   border-radius: 3px;
+  -webkit-transition: background-color;
   transition: background-color;
-  transition-duration: 300ms;
-  transition-timing-function: ease;
+  -webkit-transition-duration: 300ms;
+          transition-duration: 300ms;
+  -webkit-transition-timing-function: ease;
+          transition-timing-function: ease;
   cursor: pointer;
 }
+
 button:hover {
   background-color: #fff;
 }
+
 button:active, button:focus {
   outline-width: 1px;
   outline-color: rgba(255, 255, 255, 0.2);
@@ -131,3 +156,4 @@ button:active, button:focus {
 abbr[title] {
   text-decoration: none;
 }
+/*# sourceMappingURL=style.css.map */

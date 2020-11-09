@@ -156,6 +156,7 @@ h6 {
 }
 // END Reset -------------------------------------//
 main {
+  margin: 10px;
   padding-top: $base-margin * 3;
   color: $brand-light;
   min-height: 100vh;
@@ -179,7 +180,10 @@ main {
   flex-flow: row wrap;
 
   .item {
-    width: 48%;
+    width: 100%;
+    @include media-breakpoint-up(lg) {
+      width: 48%;
+    }
     margin-bottom: $base-margin * 3;
     background-color: $brand-light;
     color: $brand-dark;
@@ -232,10 +236,7 @@ main {
 // Sidebar
 //------------------------------------------------------//
 aside {
-  order: -1;
-  @include media-breakpoint-up(lg) {
-    order: 1;
-  }
+  order: 1;
   color: $brand-light;
   width: 100%;
   background-color: $brand-dark;

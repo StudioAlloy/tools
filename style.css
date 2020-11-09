@@ -22,6 +22,7 @@ h6 {
 }
 
 main {
+  margin: 10px;
   padding-top: 45px;
   color: #fff;
   min-height: 100vh;
@@ -64,7 +65,7 @@ main {
 }
 
 .item-list .item {
-  width: 48%;
+  width: 100%;
   margin-bottom: 45px;
   background-color: #fff;
   color: #0c162d;
@@ -79,6 +80,12 @@ main {
           transition-duration: 300ms;
   -webkit-transition-timing-function: ease;
           transition-timing-function: ease;
+}
+
+@media (min-width: 992px) {
+  .item-list .item {
+    width: 48%;
+  }
 }
 
 .item-list .item:hover {
@@ -126,20 +133,12 @@ main {
 }
 
 aside {
-  -webkit-box-ordinal-group: 0;
-      -ms-flex-order: -1;
-          order: -1;
+  -webkit-box-ordinal-group: 2;
+      -ms-flex-order: 1;
+          order: 1;
   color: #fff;
   width: 100%;
   background-color: #0c162d;
-}
-
-@media (min-width: 992px) {
-  aside {
-    -webkit-box-ordinal-group: 2;
-        -ms-flex-order: 1;
-            order: 1;
-  }
 }
 
 aside > .inner {
