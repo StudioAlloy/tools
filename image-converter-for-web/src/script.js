@@ -9,41 +9,16 @@ var app = new Vue({
     backgroundColor: '#ffc0cb',
     quality: 80,
     zoom: 11,
-    version: '1.0',
-    fileName: '',
+    version: '1.1'
   },
-
   computed: {
     convertZoom: function () {
       return this.zoom / 10;
     },
     convertQuailty: function () {
       return (this.quality / 100).toFixed(1);
-    },
-    updateFileName: function () {
-      console.warn(this.fileName);
-
-      function slugify(string) {
-        const a = 'àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;'
-        const b = 'aaaaaaaaaacccddeeeeeeeegghiiiiiilmnnnnoooooooooprrsssssttuuuuuuuuuwxyyzzz------'
-        const p = new RegExp(a.split('').join('|'), 'g')
-
-        return string.toString().toLowerCase()
-          .replace(/\s+/g, '-') // Replace spaces with -
-          .replace(p, c => b.charAt(a.indexOf(c))) // Replace special characters
-          .replace(/&/g, '-and-') // Replace & with 'and'
-          .replace(/[^\w\-]+/g, '') // Remove all non-word characters
-          .replace(/\-\-+/g, '-') // Replace multiple - with single -
-          .replace(/^-+/, '') // Trim - from start of text
-          .replace(/-+$/, '') // Trim - from end of text
-      }
-      const date = Date.now();
-      const result = slugify(`${this.fileName}-${date}`);
-      return result;
     }
-
   },
-
   methods: {
     //------------------------------------------------------//
     // File upload
@@ -52,15 +27,13 @@ var app = new Vue({
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
       this.createImage(files[0]);
-      console.warn(files[0].name);
-      this.fileName = files[0].name.split('.').slice(0, -1).join('.');
     },
     createImage(file) {
       var image = new Image();
       var reader = new FileReader();
       var vm = this;
 
-      reader.onload = e => {
+      reader.onload = (e) => {
         vm.image = e.target.result;
       };
       reader.readAsDataURL(file);
@@ -74,20 +47,17 @@ var app = new Vue({
     downloadImage: function () {
 
       let currentQuailty = Number(this.convertQuailty);
-      let name = this.updateFileName;
 
       html2canvas(this.$refs.download, {
-        scale: this.size
-      }).
-        then(function (canvas) {
-          document.body.appendChild(canvas);
-          canvas.toBlob(function (blob) {
-            saveAs(blob, name);
-          }, "image/jpeg", currentQuailty);
-        });
+        scale: this.size,
+      }).then(function (canvas) {
+        document.body.appendChild(canvas);
+        canvas.toBlob(function (blob) {
+          saveAs(blob, "social.jpg");
+        }, "image/jpeg", currentQuailty);
+      });
     }
   },
-
   mounted() {
     Draggable.create("#background .alloy-image");
   }

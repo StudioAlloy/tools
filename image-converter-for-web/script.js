@@ -9,16 +9,16 @@ var app = new Vue({
     backgroundColor: '#ffc0cb',
     quality: 80,
     zoom: 11,
-    version: '1.0'
-  },
+    version: '1.1' },
+
   computed: {
     convertZoom: function () {
       return this.zoom / 10;
     },
     convertQuailty: function () {
       return (this.quality / 100).toFixed(1);
-    }
-  },
+    } },
+
   methods: {
     //------------------------------------------------------//
     // File upload
@@ -33,7 +33,7 @@ var app = new Vue({
       var reader = new FileReader();
       var vm = this;
 
-      reader.onload = (e) => {
+      reader.onload = e => {
         vm.image = e.target.result;
       };
       reader.readAsDataURL(file);
@@ -49,16 +49,15 @@ var app = new Vue({
       let currentQuailty = Number(this.convertQuailty);
 
       html2canvas(this.$refs.download, {
-        scale: this.size,
-      }).then(function (canvas) {
+        scale: this.size }).
+      then(function (canvas) {
         document.body.appendChild(canvas);
         canvas.toBlob(function (blob) {
           saveAs(blob, "social.jpg");
         }, "image/jpeg", currentQuailty);
       });
-    }
-  },
+    } },
+
   mounted() {
     Draggable.create("#background .alloy-image");
-  }
-});
+  } });
